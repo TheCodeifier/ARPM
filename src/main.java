@@ -32,9 +32,15 @@ abstract class Country {
 
     public abstract double convertToLocalCurrency(double priceInEuros);
 
-    public String getName() { return name; }
-    public double getVatPercentage() { return vatPercentage; }
-    public String getCurrencySymbol() { return currencySymbol; }
+    public String getName() { 
+        return name;
+    }
+    public double getVatPercentage() { 
+        return vatPercentage; 
+    }
+    public String getCurrencySymbol() { 
+        return currencySymbol; 
+    }
 }
 
 class EuroCountry extends Country {

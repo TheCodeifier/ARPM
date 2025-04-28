@@ -21,12 +21,12 @@ class Product {
 
 abstract class Country {
     protected String name;
-    protected double vatPercentage;
+    protected double VATPercentage;
     protected String currencySymbol;
 
-    public Country(String name, double vatPercentage, String currencySymbol) {
+    public Country(String name, double VATPercentage, String currencySymbol) {
         this.name = name;
-        this.vatPercentage = vatPercentage;
+        this.VATPercentage = VATPercentage;
         this.currencySymbol = currencySymbol;
     }
 
@@ -35,8 +35,8 @@ abstract class Country {
     public String getName() { 
         return name;
     }
-    public double getVatPercentage() { 
-        return vatPercentage; 
+    public double getVATPercentage() { 
+        return VATPercentage; 
     }
     public String getCurrencySymbol() { 
         return currencySymbol; 
@@ -44,8 +44,8 @@ abstract class Country {
 }
 
 class EuroCountry extends Country {
-    public EuroCountry(String name, double vatPercentage, String currencySymbol) {
-        super(name, vatPercentage, currencySymbol);
+    public EuroCountry(String name, double VATPercentage, String currencySymbol) {
+        super(name, VATPercentage, currencySymbol);
     }
 
     @Override
@@ -57,8 +57,8 @@ class EuroCountry extends Country {
 class NonEuroCountry extends Country {
     private final double exchangeRateToEuro;
 
-    public NonEuroCountry(String name, double vatPercentage, String currencySymbol, double exchangeRateToEuro) {
-        super(name, vatPercentage, currencySymbol);
+    public NonEuroCountry(String name, double VATPercentage, String currencySymbol, double exchangeRateToEuro) {
+        super(name, VATPercentage, currencySymbol);
         this.exchangeRateToEuro = exchangeRateToEuro;
     }
 
@@ -73,8 +73,8 @@ class NonEuroCountry extends Country {
 }
 
 class VATCalculator {
-    public static double calculatePriceWithVAT(double basePrice, double vatPercentage) {
-        return basePrice + (basePrice * vatPercentage / 100);
+    public static double calculatePriceWithVAT(double basePrice, double VATPercentage) {
+        return basePrice + (basePrice * VATPercentage / 100);
     }
 }
 
@@ -107,12 +107,12 @@ class ARPMSystem {
     
         for (Country country : countries) {
             double basePriceEuros = product.getPriceExclusiveVAT();
-            double priceWithVAT = VATCalculator.calculatePriceWithVAT(basePriceEuros, country.getVatPercentage());
-            double vatAmountEuro = priceWithVAT - basePriceEuros;
+            double priceWithVAT = VATCalculator.calculatePriceWithVAT(basePriceEuros, country.getVATPercentage());
+            double VATAmountEuro = priceWithVAT - basePriceEuros;
             double localPrice = country.convertToLocalCurrency(priceWithVAT);
-            double vatAmountLocal = country.convertToLocalCurrency(vatAmountEuro);
+            double VATAmountLocal = country.convertToLocalCurrency(VATAmountEuro);
     
-            System.out.printf("%-25s %20.2f %20.2f %s%-23.2f %10.2f / %s%-14.2f%n",country.getName(), basePriceEuros, priceWithVAT, country.getCurrencySymbol(), localPrice, vatAmountEuro, country.getCurrencySymbol(), vatAmountLocal);
+            System.out.printf("%-25s %20.2f %20.2f %s%-23.2f %10.2f / %s%-14.2f%n",country.getName(), basePriceEuros, priceWithVAT, country.getCurrencySymbol(), localPrice, VATAmountEuro, country.getCurrencySymbol(), VATAmountLocal);
         }
     }    
 }
